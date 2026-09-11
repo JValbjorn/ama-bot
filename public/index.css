@@ -1,0 +1,119 @@
+/* -------------------------------general styling ----------------------------*/
+* 
+{
+  box-sizing: border-box;
+}
+
+:root {
+  --background: #faf2e5;
+  --green: #abb97e;
+  --dark-green: #5d6939;
+  --light-green: #dcdbaf;
+  --light-blue: #8CBCD0;
+  --dark-blue: #156195;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: #333;
+  background-color: var(--background);
+}
+
+/* -------------------------------------Header----------------------------- */
+h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  text-transform: uppercase;
+  color: var(--dark-green);
+  margin-bottom: 10px;
+}
+
+h2 {
+  display: flex;
+  justify-content: center;
+  color: var(--dark-green);
+  margin-top: 0;
+}
+
+/* --------------------------------------Q&A delen---------------------------- */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px 20px;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* -----------------------------------Beskeder--------------------------------- */
+.question {
+  grid-column: 2;
+  justify-self: end;
+  max-width: 80%;
+  padding: 15px 20px;
+  background-color: var(--green);
+  border-radius: 20px 20px 0 20px;
+  color: white;
+}
+
+.answer {
+  grid-column: 1;
+  justify-self: start;
+  max-width: 80%;
+  padding: 15px 20px;
+  background-color: var(--dark-green);
+  border-radius: 20px 20px 20px 0;
+  color: white;
+}
+
+.question p,
+.answer p {
+margin: 0;
+line-height: 1.5;
+}
+
+/* form delen */
+
+.input-form {
+grid-column: 1 / -1;
+width: 100%;
+margin-top: 20px;
+}
+
+
+/* ---------Tekstfeltet--------- */
+#question {
+  width: 100%;
+  min-height: 80px;
+  background-color: var(--light-green);
+  border: none;
+  padding: 12px 20px;
+  margin-top: 10px;
+  font-size: 16px;
+  font-family: inherit;
+  resize: vertical;
+  border-radius: 20px;
+  color: #333;
+
+  outline: 3px solid var(--green);
+}
+
+button {
+  background-color: var(--green);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 16px;
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+
