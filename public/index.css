@@ -117,4 +117,9 @@ button {
   border-radius: 50px;
 }
 
+/* ------------------Topic----------- */
+
+.stats {
+  display: flex;
+  }
 

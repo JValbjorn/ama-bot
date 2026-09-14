@@ -1,4 +1,5 @@
 import express from "express";
+import { answers } from "./data/answers.js";
 
 const app = express();
 const port = 3400;
@@ -6,39 +7,22 @@ const port = 3400;
 app.set("view engine", "ejs");
 
 const messages = [];
-const answers = [
-  {
-    category: "navn",
-    keywords: ["navn", "hedder", "hvem er du"],
-    answer: [
-      "Mit navn er Julie Valbjørn.",
-      "Hej, Jeg er Julie.",
-    ]},
-  {
-    category: "bosted",
-    keywords: ["bor", "by", "fra"],
-    answer: [
-      "Jeg kommer oprinligt fra Ans by, som ligger ved tange sø.",
-      "Nu bor jeg i Riskov, sammen med min kærste."
-]},
-  {
-    category: "fritid",
-    keywords: ["fritid", "hobby", "kan lide"],
-    answer: [
-      "I min fritid danser jeg West Coast Swing.", 
-      "Når jeg føler mig kreativ kan jeg godt lide at hækkele eller strikke.",
-    ],
-  },
-];
 
 const topicStats = {
   navn: 0,
   bosted: 0,
-  fritid: 0
+  fritid: 0,
+  film: 0,
+  musik: 0,
+  spil: 0,
+  dans: 0,
+  ukendt: 0,
 };
 
 function countMatches(keywords, normalizedQuestion) {
-  const matches = keywords.filter((keyword) => normalizedQuestion.includes(keyword));
+  const matches = keywords.filter((keyword) =>
+    normalizedQuestion.includes(keyword),
+  );
   return matches.length;
 }
 
@@ -61,9 +45,39 @@ function findBestAnswer(question) {
 
   return {
     answer: bestAnswer,
-    category: bestCategory
+    category: bestCategory,
   };
 }
+
+function findMostAskedTopic(stats) {
+  let highestCount = 0;
+  let mostAskedTopic = "";
+
+  for (const stat of Object.entries(stats)) {
+    const category = stat[0];
+    const count = stat[1];
+
+    if (count > highestCount) {
+      highestCount = count;
+      mostAskedTopic = category;
+    }
+  }
+
+  return mostAskedTopic;
+}
+
+// function reactionFor(category) {
+//   switch (category) {
+//     case "navn":
+//       return "👋";
+//     case "bosted":
+//       return "🏠";
+//     case "fritid":
+//       return "🎉";
+//     default:
+//       return "🤖";
+//   }
+// }
 
 // function findAnswer(question) {
 //   const normalizedQuestion = question.toLowerCase();
@@ -100,38 +114,47 @@ app.post("/ask", (request, response) => {
     messages.push({ type: "question", text: question, createdAt: new Date() });
 
     const result = findBestAnswer(question);
-    messages.push({ type: "answer", text: result.answer, createdAt: new Date() });
+    const reaction = reactionFor(result.category);
+    messages.push({
+      type: "answer",
+      text: `${reaction} ${result.answer}`,
+      createdAt: new Date(),
+    });
 
     if (result.category) {
       topicStats[result.category] += 1;
+    } else {
+      topicStats.ukendt += 1;
     }
   }
 
-app.post("/clear-messages", (request, response) => {
-  messages.length = 0;
-  response.redirect("/");
-});
+  app.post("/clear-messages", (request, response) => {
+    messages.length = 0;
+    response.redirect("/");
+  });
 
-  response.render("index", { messages, error, topicStats});
+  const mostAskedTopic = findMostAskedTopic(topicStats);
+
+  response.render("index", { messages, error, topicStats, mostAskedTopic });
 });
 
 function sanitizeQuestion(input) {
   return input.replace(/[\u0000-\u001F\u007F]/g, "");
 }
 
-// app.get("/debug", (request, response) => {
-//   console.log(request.query);
-//   response.send(request.query);
-// });
+app.post("/clear-stats", (request, response) => {
+  for (const category of Object.keys(topicStats)) {
+    topicStats[category] = 0;
+  }
 
-// app.get("/debug/:name", (request, response) => {
-//   console.log(request.params);
-//   response.send(request.params);
-// });
+  response.redirect("/");
+});
 
 //------------------------------------route-------------------------------
 app.get("/", (request, response) => {
-  response.render("index", { messages, error: "", topicStats });
+  const mostAskedTopic = findMostAskedTopic(topicStats);
+
+  response.render("index", { messages, error: "", topicStats, mostAskedTopic });
 });
 
 //-----------------------------middleware + skal gerne være nederest-----------------

@@ -53,13 +53,19 @@
           <form method="POST" action="/clear-messages">
             <button type="submit">Ryd beskeder</button>
           </form>
+          <form method="POST" action="/clear-stats">
+            <button type="submit">Nulstil statistik</button>
+          </form>
         </section>
         <section>
           <h2>Spørgsmål fordelt på emner</h2>
+          <% if (mostAskedTopic) { %>
+            <p>Mest spurgte emne: <%= mostAskedTopic %></p>
+          <% } %>
             <ul>
-              <li>Navn: <%= topicStats.navn %></li>
-              <li>Bosted: <%= topicStats.bosted %></li>
-              <li>Fritid: <%= topicStats.fritid %></li>
+              <% for (const stat of Object.entries(topicStats)) { %>
+                <li><%= stat[0] %>: <%= stat[1] %></li>
+              <% } %>
             </ul>
         </section>
       </section>
