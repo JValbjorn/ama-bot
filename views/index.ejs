@@ -26,33 +26,41 @@
     <main>
       <section class="grid-container">
        <% for (const message of messages) { %>
-        <div>
-  <article class="<%= message.type %>">
-    <p><%= message.text %></p>
-    </article>
-  <time><%= message.createdAt.toLocaleTimeString("da-DK") %></time>
-</div>
-<% } %>
+          <div class="message-container <%= message.type %>">
+            <article class="bubble">
+              <p><%= message.text %></p>
+            </article>
+            <time><%= message.createdAt.toLocaleTimeString("da-DK") %></time>
+          </div>
+        <% } %>
         <section class="input-form">
           <form method="post" action="/ask">
             <article class="message">
               <label for="question">Ask a question:</label>
-              <textarea
+              <input
                 type="text"
                 name="question"
                 id="question"
                 placeholder="Type your question here"
-                required
-              ></textarea>
+                required >
+              </input>
             </article>
             <button type="submit">Submit</button>
           </form>
-           <% if (error) { %>
+          <% if (error) { %>
             <p role="alert"><%= error %></p>
-            <% } %>
-            <form method="POST" action="/clear-messages">
-              <button type="submit">Ryd beskeder</button>
-            </form>
+          <% } %>
+          <form method="POST" action="/clear-messages">
+            <button type="submit">Ryd beskeder</button>
+          </form>
+        </section>
+        <section>
+          <h2>Spørgsmål fordelt på emner</h2>
+            <ul>
+              <li>Navn: <%= topicStats.navn %></li>
+              <li>Bosted: <%= topicStats.bosted %></li>
+              <li>Fritid: <%= topicStats.fritid %></li>
+            </ul>
         </section>
       </section>
     </main>

@@ -8,47 +8,82 @@ app.set("view engine", "ejs");
 const messages = [];
 const answers = [
   {
+    category: "navn",
     keywords: ["navn", "hedder", "hvem er du"],
-    answers: [
-      "Mit navn er Julie Valbjørn.", 
-      "Hej, Jeg er Julie.", 
+    answer: [
+      "Mit navn er Julie Valbjørn.",
+      "Hej, Jeg er Julie.",
     ]},
   {
+    category: "bosted",
     keywords: ["bor", "by", "fra"],
-    answers: [
-      "Jeg kommer oprinligt fra Ans by, som ligger ved tange sø.", 
+    answer: [
+      "Jeg kommer oprinligt fra Ans by, som ligger ved tange sø.",
       "Nu bor jeg i Riskov, sammen med min kærste."
 ]},
   {
+    category: "fritid",
     keywords: ["fritid", "hobby", "kan lide"],
-    answers: [
-      "I min fritid danser jeg West Coast Swing. ", 
+    answer: [
+      "I min fritid danser jeg West Coast Swing.", 
       "Når jeg føler mig kreativ kan jeg godt lide at hækkele eller strikke.",
-  ]},
+    ],
+  },
 ];
 
-function findAnswer(question) {
+const topicStats = {
+  navn: 0,
+  bosted: 0,
+  fritid: 0
+};
+
+function countMatches(keywords, normalizedQuestion) {
+  const matches = keywords.filter((keyword) => normalizedQuestion.includes(keyword));
+  return matches.length;
+}
+
+function findBestAnswer(question) {
   const normalizedQuestion = question.toLowerCase();
+  let bestScore = 0;
+  let bestAnswer = "Det kender jeg ikke svaret på endnu.";
+  let bestCategory = "";
 
   for (const answerGroup of answers) {
-    const hasMatch = answerGroup.keywords.some((keyword) =>
-      normalizedQuestion.includes(keyword),
-    );
+    const score = countMatches(answerGroup.keywords, normalizedQuestion);
+    const randomIndex = Math.floor(Math.random() * answerGroup.answer.length);
 
-    if (hasMatch) {
-      const randomIndex = Math.floor(Math.random() * answerGroup.answers.length);
-      return answerGroup.answers[randomIndex];
+    if (score > bestScore) {
+      bestScore = score;
+      bestAnswer = answerGroup.answer[randomIndex];
+      bestCategory = answerGroup.category;
     }
   }
 
-  
-
-  return "Det kender jeg ikke svaret på endnu.";
+  return {
+    answer: bestAnswer,
+    category: bestCategory
+  };
 }
 
-console.log(findAnswer("Hvad hedder du?"));
+// function findAnswer(question) {
+//   const normalizedQuestion = question.toLowerCase();
+
+//   for (const answerGroup of answers) {
+//     const hasMatch = answerGroup.keywords.some((keyword) =>
+//       normalizedQuestion.includes(keyword),
+//     );
+
+//     if (hasMatch) {
+//       const randomIndex = Math.floor(Math.random() * answerGroup.answers.length);
+//       return answerGroup.answers[randomIndex];
+//     }
+//   }
+
+//   return "Det kender jeg ikke svaret på endnu.";
+// }
 
 //------------------middleware-----------
+
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
@@ -63,16 +98,21 @@ app.post("/ask", (request, response) => {
     error = "Spørgsmålet må højst være 280 tegn.";
   } else {
     messages.push({ type: "question", text: question, createdAt: new Date() });
-    const answer = findAnswer(question);
-    messages.push({ type: "answer", text: answer, createdAt: new Date() });
+
+    const result = findBestAnswer(question);
+    messages.push({ type: "answer", text: result.answer, createdAt: new Date() });
+
+    if (result.category) {
+      topicStats[result.category] += 1;
+    }
   }
 
-  app.post("/clear-messages", (request, response) => {
+app.post("/clear-messages", (request, response) => {
   messages.length = 0;
   response.redirect("/");
 });
 
-  response.render("index", { messages, error });
+  response.render("index", { messages, error, topicStats});
 });
 
 function sanitizeQuestion(input) {
@@ -91,7 +131,7 @@ function sanitizeQuestion(input) {
 
 //------------------------------------route-------------------------------
 app.get("/", (request, response) => {
-  response.render("index", { messages, error: "" });
+  response.render("index", { messages, error: "", topicStats });
 });
 
 //-----------------------------middleware + skal gerne være nederest-----------------
