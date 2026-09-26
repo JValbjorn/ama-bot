@@ -7,6 +7,8 @@ const port = 3400;
 
 app.set("view engine", "ejs");
 
+// ------------------henter/gemmer data fra messages.json-----------------------
+
 async function loadMessages() {
   const data = await fs.readFile("./data/messages.json", "utf8");
   const messages = JSON.parse(data);
@@ -14,7 +16,7 @@ async function loadMessages() {
   for (const message of messages) {
     message.createdAt = new Date(message.createdAt);
   }
-  
+
   return messages;
 }
 
@@ -23,16 +25,19 @@ async function saveMessages(messages) {
   await fs.writeFile("./data/messages.json", json);
 }
 
-const topicStats = {
-  navn: 0,
-  bosted: 0,
-  fritid: 0,
-  film: 0,
-  musik: 0,
-  spil: 0,
-  dans: 0,
-  ukendt: 0,
-};
+// ------------------henter/gemmer data fra topic-stats.json-----------------------
+
+async function loadTopicStats() {
+  const data = await fs.readFile("./data/topic-stats.json", "utf8");
+  return JSON.parse(data);
+}
+
+async function saveTopicStats(topicStats) {
+  const json = JSON.stringify(topicStats, null, 2);
+  await fs.writeFile("./data/topic-stats.json", json);
+}
+
+// -------------forbedringer--------------------
 
 function countMatches(keywords, normalizedQuestion) {
   const matches = keywords.filter((keyword) =>
@@ -43,7 +48,7 @@ function countMatches(keywords, normalizedQuestion) {
 
 function normalizeQuestion(question) {
   let normalizedQuestion = question.toLowerCase();
-  return question.replace(/\s+/g, " ")
+  return question.replace(/\s+/g, " ");
   //nok her jeg skal bruge dans regex?
 }
 
@@ -87,11 +92,19 @@ function findMostAskedTopic(stats) {
   return mostAskedTopic;
 }
 
+function sanitizeQuestion(input) {
+  return input.replace(/[\u0000-\u001F\u007F]/g, "");
+}
+
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
+// ----------------------poost-routs-----------------------------
+
 app.post("/ask", async (request, response) => {
   const messages = await loadMessages();
+  const topicStats = await loadTopicStats();
+  const mostAskedTopic = findMostAskedTopic(topicStats);
 
   const rawQuestion = request.body.question;
   const question = sanitizeQuestion(rawQuestion).trim();
@@ -118,32 +131,32 @@ app.post("/ask", async (request, response) => {
     }
   }
 
-  app.post("/clear-messages", (request, response) => {
-    messages.length = 0;
-    response.redirect("/");
-  });
-
-  const mostAskedTopic = findMostAskedTopic(topicStats);
-
   await saveMessages(messages);
+  await saveTopicStats(topicStats);
 
   response.render("index", { messages, error, topicStats, mostAskedTopic });
 });
 
-function sanitizeQuestion(input) {
-  return input.replace(/[\u0000-\u001F\u007F]/g, "");
-}
+app.post("/clear-messages", async (request, response) => {
+  await saveMessages([]);
+  response.redirect("/");
+});
 
-app.post("/clear-stats", (request, response) => {
+app.post("/clear-stats", async (request, response) => {
+  const topicStats = await loadTopicStats();
+
   for (const category of Object.keys(topicStats)) {
     topicStats[category] = 0;
   }
 
+  await saveTopicStats(topicStats);
   response.redirect("/");
 });
 
-//------------------------------------route-------------------------------
+// ----------------------get-routs-----------------------------
+
 app.get("/", async (request, response) => {
+  const topicStats = await loadTopicStats();
   const mostAskedTopic = findMostAskedTopic(topicStats);
   const messages = await loadMessages();
 
