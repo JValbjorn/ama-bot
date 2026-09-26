@@ -1,12 +1,21 @@
 import express from "express";
 import { answers } from "./data/answers.js";
+import fs from "node:fs/promises";
 
 const app = express();
 const port = 3400;
 
 app.set("view engine", "ejs");
 
-const messages = [];
+async function loadMessages() {
+  const data = await fs.readFile("./data/messages.json", "utf8");
+  return JSON.parse(data);
+}
+
+async function saveMessages(messages) {
+  const json = JSON.stringify(messages, null, 2);
+  await fs.writeFile("./data/messages.json", json);
+}
 
 const topicStats = {
   navn: 0,
@@ -66,42 +75,12 @@ function findMostAskedTopic(stats) {
   return mostAskedTopic;
 }
 
-// function reactionFor(category) {
-//   switch (category) {
-//     case "navn":
-//       return "👋";
-//     case "bosted":
-//       return "🏠";
-//     case "fritid":
-//       return "🎉";
-//     default:
-//       return "🤖";
-//   }
-// }
-
-// function findAnswer(question) {
-//   const normalizedQuestion = question.toLowerCase();
-
-//   for (const answerGroup of answers) {
-//     const hasMatch = answerGroup.keywords.some((keyword) =>
-//       normalizedQuestion.includes(keyword),
-//     );
-
-//     if (hasMatch) {
-//       const randomIndex = Math.floor(Math.random() * answerGroup.answers.length);
-//       return answerGroup.answers[randomIndex];
-//     }
-//   }
-
-//   return "Det kender jeg ikke svaret på endnu.";
-// }
-
-//------------------middleware-----------
-
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
-app.post("/ask", (request, response) => {
+app.post("/ask", async (request, response) => {
+  const messages = await loadMessages();
+
   const rawQuestion = request.body.question;
   const question = sanitizeQuestion(rawQuestion).trim();
   let error = "";
@@ -114,10 +93,9 @@ app.post("/ask", (request, response) => {
     messages.push({ type: "question", text: question, createdAt: new Date() });
 
     const result = findBestAnswer(question);
-    const reaction = reactionFor(result.category);
     messages.push({
       type: "answer",
-      text: `${reaction} ${result.answer}`,
+      text: ` ${result.answer}`,
       createdAt: new Date(),
     });
 
@@ -135,6 +113,8 @@ app.post("/ask", (request, response) => {
 
   const mostAskedTopic = findMostAskedTopic(topicStats);
 
+  await saveMessages(messages);
+
   response.render("index", { messages, error, topicStats, mostAskedTopic });
 });
 
@@ -151,8 +131,9 @@ app.post("/clear-stats", (request, response) => {
 });
 
 //------------------------------------route-------------------------------
-app.get("/", (request, response) => {
+app.get("/", async (request, response) => {
   const mostAskedTopic = findMostAskedTopic(topicStats);
+  const messages = await loadMessages();
 
   response.render("index", { messages, error: "", topicStats, mostAskedTopic });
 });
