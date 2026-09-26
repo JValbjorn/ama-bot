@@ -9,7 +9,13 @@ app.set("view engine", "ejs");
 
 async function loadMessages() {
   const data = await fs.readFile("./data/messages.json", "utf8");
-  return JSON.parse(data);
+  const messages = JSON.parse(data);
+
+  for (const message of messages) {
+    message.createdAt = new Date(message.createdAt);
+  }
+  
+  return messages;
 }
 
 async function saveMessages(messages) {
@@ -35,8 +41,14 @@ function countMatches(keywords, normalizedQuestion) {
   return matches.length;
 }
 
+function normalizeQuestion(question) {
+  let normalizedQuestion = question.toLowerCase();
+  return question.replace(/\s+/g, " ")
+  //nok her jeg skal bruge dans regex?
+}
+
 function findBestAnswer(question) {
-  const normalizedQuestion = question.toLowerCase();
+  const normalizedQuestion = normalizeQuestion(question);
   let bestScore = 0;
   let bestAnswer = "Det kender jeg ikke svaret på endnu.";
   let bestCategory = "";

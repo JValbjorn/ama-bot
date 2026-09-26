@@ -8,5 +8,25 @@
     "type": "answer",
     "text": " Hej, Jeg er Julie.",
     "createdAt": "2026-09-26T16:28:41.934Z"
+  },
+  {
+    "type": "question",
+    "text": "hedder",
+    "createdAt": "2026-09-26T16:48:51.082Z"
+  },
+  {
+    "type": "answer",
+    "text": " Hej, Jeg er Julie.",
+    "createdAt": "2026-09-26T16:48:51.082Z"
+  },
+  {
+    "type": "question",
+    "text": "hvem er du og hvor kommer du fra",
+    "createdAt": "2026-09-26T16:54:02.773Z"
+  },
+  {
+    "type": "answer",
+    "text": " Mit navn er Julie Valbjørn.",
+    "createdAt": "2026-09-26T16:54:02.773Z"
   }
 ]
