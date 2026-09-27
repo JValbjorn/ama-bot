@@ -1,6 +1,7 @@
 import express from "express";
-import { loadMessages, saveMessages } from "../data/messages.js"
-import { findBestAnswer } from "../answerLogic.js"
+import { loadMessages, saveMessages } from "../data/messages.js";
+import { loadAnswers } from "../data/answers.js";
+import { findBestAnswer } from "../answerLogic.js";
 
 const router = express.Router();
 
@@ -28,10 +29,13 @@ router.post("/", async (request, response) => {
   };
   messages.push(message);
 
-  const result = findBestAnswer(question);
+  const answerGroups = await loadAnswers();
+
+  const result = findBestAnswer(question, answerGroups);
+
   const answerMessage = {
     type: "answer",
-    text: result.answers,
+    text: result.bestAnswer,
     createdAt: new Date().toISOString(),
   };
   messages.push(answerMessage);
@@ -46,6 +50,5 @@ router.delete("/", async (request, response) => {
 
   response.send();
 });
-
 
 export default router;

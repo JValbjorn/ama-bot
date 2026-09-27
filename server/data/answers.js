@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 
-
 // ------------------henter/gemmer data fra answers.json-----------------------
 
 export async function loadAnswers() {

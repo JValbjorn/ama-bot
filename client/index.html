@@ -11,12 +11,12 @@
   <meta name="author" content="Julie" />
   <meta name="color" />
   <title>AMA-Bot</title>
-  <script src="server.js" defer></script>
+  <script src="app.js" defer></script>
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link rel="canonical" href="https://www.ama-bot.com/" />
 
   <head>
-    <link rel="stylesheet" href="/index.css" />
+    <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
     <header>
@@ -25,16 +25,16 @@
     </header>
     <main>
       <section class="grid-container">
-       <% for (const message of messages) { %>
-          <div class="message-container <%= message.type %>">
+       
+          <div class="message-container" id="messages">
             <article class="bubble">
-              <p><%= message.text %></p>
+              <p></p>
             </article>
-            <time><%= message.createdAt.toLocaleTimeString("da-DK") %></time>
+            <time></time>
           </div>
-        <% } %>
+       
         <section class="input-form">
-          <form method="post" action="/ask">
+          <form method="post" action="/ask" id="question-form">
             <article class="message">
               <label for="question">Ask a question:</label>
               <input
@@ -47,27 +47,24 @@
             </article>
             <button type="submit">Submit</button>
           </form>
-          <% if (error) { %>
-            <p role="alert"><%= error %></p>
-          <% } %>
-          <form method="POST" action="/clear-messages">
-            <button type="submit">Ryd beskeder</button>
+          <form method="POST" action="/clear-messages-button">
+            <button type="button" id="clear-messages-button">Ryd beskeder</button>
           </form>
-          <form method="POST" action="/clear-stats">
-            <button type="submit">Nulstil statistik</button>
+          <form method="POST" action="/clear-stats-button">
+            <button type="button" id="clear-stats-button">Nulstil statistik</button>
           </form>
         </section>
-        <section>
+        <!-- <section>
           <h2>Spørgsmål fordelt på emner</h2>
-          <% if (mostAskedTopic) { %>
-            <p>Mest spurgte emne: <%= mostAskedTopic %></p>
-          <% } %>
+          
+            <p>Mest spurgte emne: </p>
+        
             <ul>
-              <% for (const stat of Object.entries(topicStats)) { %>
-                <li><%= stat[0] %>: <%= stat[1] %></li>
-              <% } %>
+              
+                <li></li>
+             
             </ul>
-        </section>
+        </section> -->
       </section>
     </main>
   </body>

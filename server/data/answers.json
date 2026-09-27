@@ -7,7 +7,7 @@
       "hello",
       "hey"
     ],
-    "answers": "Hej! Hvad vil du gerne vide om mig?"
+    "answers": ["Hej! Hvad vil du gerne vide om mig?"]
   },
   {
     "category": "bosted",

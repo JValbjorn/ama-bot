@@ -122,3 +122,30 @@ button {
 .stats {
   display: flex;
   }
+
+  /* -------------clear messages btn---------------*/
+
+  /* #clear-messages-button {
+  display: block;
+  margin: 1rem auto 0;
+  padding: 0.6rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+#clear-messages-button:hover {
+  background: var(--answer-bg);
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+#clear-messages-button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+} */

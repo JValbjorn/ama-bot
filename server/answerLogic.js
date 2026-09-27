@@ -1,3 +1,5 @@
+import { loadAnswers } from "./data/answers.js";
+
 function countMatches(keywords, normalizedQuestion) {
   const matches = keywords.filter((keyword) =>
     normalizedQuestion.includes(keyword),
@@ -7,29 +9,29 @@ function countMatches(keywords, normalizedQuestion) {
 
 function normalizeQuestion(question) {
   let normalizedQuestion = question.toLowerCase();
-  return question.replace(/\s+/g, " ");
+  return normalizedQuestion.replace(/\s+/g, " ");
   //nok her jeg skal bruge dans regex?
 }
 
-export function findBestAnswer(question) {
+export function findBestAnswer(question, answerGroups) {
   const normalizedQuestion = normalizeQuestion(question);
   let bestScore = 0;
   let bestAnswer = "Det kender jeg ikke svaret på endnu.";
   let bestCategory = "";
 
-  for (const answerGroup of answers) {
+  for (const answerGroup of answerGroups) {
     const score = countMatches(answerGroup.keywords, normalizedQuestion);
-    const randomIndex = Math.floor(Math.random() * answerGroup.answer.length);
+    const randomIndex = Math.floor(Math.random() * answerGroup.answers.length);
 
     if (score > bestScore) {
       bestScore = score;
-      bestAnswer = answerGroup.answer[randomIndex];
+      bestAnswer = answerGroup.answers[randomIndex];
       bestCategory = answerGroup.category;
     }
   }
 
   return {
-    answers: bestAnswer,
+    bestAnswer: bestAnswer,
     category: bestCategory,
   };
 }
