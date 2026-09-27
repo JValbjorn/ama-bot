@@ -1,11 +1,10 @@
 import express from "express";
-import { answers } from "./data/answers.js";
 import fs from "node:fs/promises";
 
 const app = express();
 const port = 3400;
 
-app.set("view engine", "ejs");
+app.use(express.json());
 
 // ------------------henter/gemmer data fra messages.json-----------------------
 
@@ -35,6 +34,18 @@ async function loadTopicStats() {
 async function saveTopicStats(topicStats) {
   const json = JSON.stringify(topicStats, null, 2);
   await fs.writeFile("./data/topic-stats.json", json);
+}
+
+// ------------------henter/gemmer data fra answers.json-----------------------
+
+async function loadAnswers() {
+  const data = await fs.readFile("./data/answers.json", "utf8");
+  return JSON.parse(data);
+}
+
+async function saveAnswers(answers) {
+  const json = JSON.stringify(answers, null, 2);
+  await fs.writeFile("./data/answers.json", json);
 }
 
 // -------------forbedringer--------------------
@@ -70,7 +81,7 @@ function findBestAnswer(question) {
   }
 
   return {
-    answer: bestAnswer,
+    answers: bestAnswer,
     category: bestCategory,
   };
 }
@@ -96,71 +107,102 @@ function sanitizeQuestion(input) {
   return input.replace(/[\u0000-\u001F\u007F]/g, "");
 }
 
-app.use(express.static("public"));
-app.use(express.urlencoded({ extended: true }));
+// --------------------------messages-routs-------------------------------------
 
-// ----------------------poost-routs-----------------------------
-
-app.post("/ask", async (request, response) => {
+app.get("/messages", async (request, response) => {
   const messages = await loadMessages();
-  const topicStats = await loadTopicStats();
-  const mostAskedTopic = findMostAskedTopic(topicStats);
 
-  const rawQuestion = request.body.question;
-  const question = sanitizeQuestion(rawQuestion).trim();
-  let error = "";
+  response.json(messages);
+});
+
+app.post("/messages", async (request, response) => {
+  const messages = await loadMessages();
+  const question = request.body.question.trim();
 
   if (!question) {
-    error = "Skriv et spørgsmål, før du sender.";
-  } else if (question.length > 280) {
-    error = "Spørgsmålet må højst være 280 tegn.";
-  } else {
-    messages.push({ type: "question", text: question, createdAt: new Date() });
-
-    const result = findBestAnswer(question);
-    messages.push({
-      type: "answer",
-      text: ` ${result.answer}`,
-      createdAt: new Date(),
-    });
-
-    if (result.category) {
-      topicStats[result.category] += 1;
-    } else {
-      topicStats.ukendt += 1;
-    }
+    response.json({ error: "Skriv et spørgsmål, før du sender." });
+    return;
   }
+
+  const message = {
+    type: "question",
+    text: question,
+    createdAt: new Date().toISOString(),
+  };
+  messages.push(message);
+
+  const result = findBestAnswer(question);
+  const answerMessage = {
+    type: "answer",
+    text: result.answers,
+    createdAt: new Date().toISOString(),
+  };
+  messages.push(answerMessage);
 
   await saveMessages(messages);
-  await saveTopicStats(topicStats);
 
-  response.render("index", { messages, error, topicStats, mostAskedTopic });
+  response.json({ question: message, answers: answerMessage });
 });
 
-app.post("/clear-messages", async (request, response) => {
+app.delete("/messages", async (request, response) => {
   await saveMessages([]);
-  response.redirect("/");
+
+  response.send();
 });
 
-app.post("/clear-stats", async (request, response) => {
-  const topicStats = await loadTopicStats();
+// ----------------Answers-routs---------------------
 
-  for (const category of Object.keys(topicStats)) {
-    topicStats[category] = 0;
-  }
+app.get("/answers", async (request, response) => {
+  const answers = await loadAnswers();
 
-  await saveTopicStats(topicStats);
-  response.redirect("/");
+  response.json(answers);
 });
 
-// ----------------------get-routs-----------------------------
+app.get("/answers/:category", async (request, response) => {
+  const answers = await loadAnswers();
+  const answerRule = answers.find(
+    (a) => a.category === request.params.category,
+  );
 
-app.get("/", async (request, response) => {
-  const topicStats = await loadTopicStats();
-  const mostAskedTopic = findMostAskedTopic(topicStats);
-  const messages = await loadMessages();
+  response.json(answerRule);
+});
 
-  response.render("index", { messages, error: "", topicStats, mostAskedTopic });
+app.post("/answers", async (request, response) => {
+  const answers = await loadAnswers();
+  const newAnswerRule = {
+    category: request.body.category,
+    keywords: request.body.keywords,
+    answers: request.body.answers,
+  };
+
+  answers.push(newAnswerRule);
+  await saveAnswers(answers);
+
+  response.json(newAnswerRule);
+});
+
+app.put("/answers/:category", async (request, response) => {
+  const answers = await loadAnswers();
+  const answerRule = answers.find(
+    (a) => a.category === request.params.category,
+  );
+
+  answerRule.keywords = request.body.keywords;
+  answerRule.answers = request.body.answers;
+  await saveAnswers(answers);
+
+  response.json(answerRule);
+});
+
+app.delete("/answers/:category", async (request, response) => {
+  const answers = await loadAnswers();
+  const updatedAnswers = answers.filter(
+    (a) => a.category !== request.params.category,
+  );
+  
+  await saveAnswers(updatedAnswers);
+
+  response.send();
 });
 
 //-----------------------------middleware + skal gerne være nederest-----------------
