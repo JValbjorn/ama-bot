@@ -10,7 +10,6 @@ function countMatches(keywords, normalizedQuestion) {
 function normalizeQuestion(question) {
   let normalizedQuestion = question.toLowerCase();
   return normalizedQuestion.replace(/\s+/g, " ");
-  //nok her jeg skal bruge dans regex?
 }
 
 export function findBestAnswer(question, answerGroups) {

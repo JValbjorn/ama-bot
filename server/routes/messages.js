@@ -14,23 +14,24 @@ router.get("/", async (request, response) => {
 });
 
 router.post("/", async (request, response) => {
-  const messages = await loadMessages();
-  const question = request.body.question.trim();
+  const question = request.body.question?.trim() ?? "";
 
   if (!question) {
-    response.json({ error: "Skriv et spørgsmål, før du sender." });
+    response.status(400).json({ error: "Skriv et spørgsmål, før du sender." });
     return;
   }
+
+  const messages = await loadMessages();
 
   const message = {
     type: "question",
     text: question,
     createdAt: new Date().toISOString(),
   };
+
   messages.push(message);
 
   const answerGroups = await loadAnswers();
-
   const result = findBestAnswer(question, answerGroups);
 
   const answerMessage = {
@@ -42,13 +43,13 @@ router.post("/", async (request, response) => {
 
   await saveMessages(messages);
 
-  response.json({ question: message, answers: answerMessage });
+  response.status(201).json({ question: message, answers: answerMessage });
 });
 
 router.delete("/", async (request, response) => {
   await saveMessages([]);
 
-  response.send();
+  response.status(204).send();
 });
 
 export default router;

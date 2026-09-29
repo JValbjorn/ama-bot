@@ -49,6 +49,11 @@ questionForm.addEventListener("submit", async (event) => {
 
   const data = await response.json();
 
+  if (!response.ok) {
+    displayMessage({ type: "error", text: data.error });
+    return;
+  }
+
   displayMessage(data.question);
   displayMessage(data.answers);
 
