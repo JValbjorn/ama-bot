@@ -1,1 +1,122 @@
-[]
+[
+  {
+    "type": "question",
+    "text": "Hvad hedder du?",
+    "createdAt": "2026-09-29T20:09:14.879Z"
+  },
+  {
+    "type": "answer",
+    "text": "Mit navn er Julie. Rart at møde dig!",
+    "createdAt": "2026-09-29T20:09:14.880Z"
+  },
+  {
+    "type": "question",
+    "text": "Hej, hvad laver du?",
+    "createdAt": "2026-09-29T20:09:27.660Z"
+  },
+  {
+    "type": "answer",
+    "text": "Hej med dig! Spørg løs, jeg bider ikke ;P",
+    "createdAt": "2026-09-29T20:09:27.660Z"
+  },
+  {
+    "type": "question",
+    "text": "Hvad kan du lide?",
+    "createdAt": "2026-09-29T20:09:43.603Z"
+  },
+  {
+    "type": "answer",
+    "text": "Det kender jeg ikke svaret på endnu.",
+    "createdAt": "2026-09-29T20:09:43.604Z"
+  },
+  {
+    "type": "question",
+    "text": "kan du lide film?",
+    "createdAt": "2026-09-29T20:09:58.297Z"
+  },
+  {
+    "type": "answer",
+    "text": "Romancer og komedier er det jeg ser mest af.",
+    "createdAt": "2026-09-29T20:09:58.298Z"
+  },
+  {
+    "type": "question",
+    "text": "Hvad med musik?",
+    "createdAt": "2026-09-29T20:10:10.640Z"
+  },
+  {
+    "type": "answer",
+    "text": "Jeg lytter tit til musicals!! Der er ofte noget som minder mig om et qoute.",
+    "createdAt": "2026-09-29T20:10:10.640Z"
+  },
+  {
+    "type": "question",
+    "text": "hvad for nogle musicals kan du bedst lide?",
+    "createdAt": "2026-09-29T20:10:45.658Z"
+  },
+  {
+    "type": "answer",
+    "text": "Min yndlingsmusical er nok Hamilton, men det er svært at vælge. Hamilton var nok min gateway drug til hele musical verdnen.",
+    "createdAt": "2026-09-29T20:10:45.658Z"
+  },
+  {
+    "type": "question",
+    "text": "spændne, hvad for noget andet musik kan du lide?",
+    "createdAt": "2026-09-29T20:11:17.883Z"
+  },
+  {
+    "type": "answer",
+    "text": "Min playlist er en blanding af alt! men sjovt nok meget pop, swing-musik og musical-numre.",
+    "createdAt": "2026-09-29T20:11:17.883Z"
+  },
+  {
+    "type": "question",
+    "text": "swing? hvad er det for noget",
+    "createdAt": "2026-09-29T20:11:33.368Z"
+  },
+  {
+    "type": "answer",
+    "text": "Som barn dansede jeg en smule standarddans, men det husker jeg desværre ikke meget af. Som teenager blev det lidt hip-hop og Just Dance. Som 15-årig begyndte jeg til swing og rock'n'roll, men nu er mit fokus primært West Coast Swing.",
+    "createdAt": "2026-09-29T20:11:33.368Z"
+  },
+  {
+    "type": "question",
+    "text": "hvad er west coast swing",
+    "createdAt": "2026-09-29T20:12:00.042Z"
+  },
+  {
+    "type": "answer",
+    "text": "Jeg har altid elsket at hoppe og danse til musik, men da jeg var 15, blev det nærmest et personlighedstræk.",
+    "createdAt": "2026-09-29T20:12:00.043Z"
+  },
+  {
+    "type": "question",
+    "text": "west coast swing",
+    "createdAt": "2026-09-29T20:12:11.945Z"
+  },
+  {
+    "type": "answer",
+    "text": "Dans er en stor del af, hvem jeg er, og jeg kan næsten ikke lade være med at bevæge mig til musik.",
+    "createdAt": "2026-09-29T20:12:11.945Z"
+  },
+  {
+    "type": "question",
+    "text": "west coast swing",
+    "createdAt": "2026-09-29T20:12:24.362Z"
+  },
+  {
+    "type": "answer",
+    "text": "Jeg har altid elsket at hoppe og danse til musik, men da jeg var 15, blev det nærmest et personlighedstræk.",
+    "createdAt": "2026-09-29T20:12:24.362Z"
+  },
+  {
+    "type": "question",
+    "text": "wcs",
+    "createdAt": "2026-09-29T20:12:32.086Z"
+  },
+  {
+    "type": "answer",
+    "text": "Er du nysgerrig? Så prøv en intro-aften! Jeg lover, det nok skal blive sjovt ;) (Vi danser onsdag og torsdag, på skovvang skolen. Spør Julie eller søg på 'https://www.wcsaarhus.dk/')",
+    "createdAt": "2026-09-29T20:12:32.087Z"
+  }
+]

@@ -23,6 +23,7 @@ function displayMessage(message) {
     </article>`;
 
   messagesContainer.insertAdjacentHTML("beforeend", html);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
 async function getMessages() {
@@ -63,6 +64,7 @@ questionForm.addEventListener("submit", async (event) => {
 clearMessagesButton.addEventListener("click", async () => {
   await fetch(`${API_URL}/messages`, { method: "DELETE" });
   messagesContainer.innerHTML = "";
+  messagesContainer.scrollTop = 0;
 });
 
 // function displayMessage(message) {
