@@ -33,7 +33,7 @@ router.post("/", async (request, response) => {
   if (!request.body.answers || !request.body.keywords || !request.body.category) {
     response.status(400).json({
       error:
-        "Der mangler information, keywords og awnsers skal beggge udfyldes.",
+        "Der mangler information, keywords, kategori og awnsers skal beggge udfyldes.",
     });
     return;
   }

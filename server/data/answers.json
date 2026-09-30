@@ -1,7 +1,17 @@
 [
   {
     "category": "hilsen",
-    "keywords": ["hej", "hallo", "hello", "hey", "goddag", "hejsa", "halløj", "godmorgen", "godaften"],
+    "keywords": [
+      "hej",
+      "hallo",
+      "hello",
+      "hey",
+      "goddag",
+      "hejsa",
+      "halløj",
+      "godmorgen",
+      "godaften"
+    ],
     "answers": [
       "Hej! Hvad vil du gerne vide om mig?",
       "Hej med dig! Spørg løs, jeg bider ikke ;P",
@@ -11,7 +21,12 @@
   },
   {
     "category": "navn",
-    "keywords": ["hvad hedder du", "dit navn", "navn", "hvem er du"],
+    "keywords": [
+      "hvad hedder du",
+      "dit navn",
+      "navn",
+      "hvem er du"
+    ],
     "answers": [
       "Jeg hedder Julie, og det her er min lille bot.",
       "Mit navn er Julie. Rart at møde dig!"
@@ -19,7 +34,13 @@
   },
   {
     "category": "hvordan_har_du_det",
-    "keywords": ["hvordan har du det", "har du det godt", "hvordan går det", "hvad så", "hvad laver du"],
+    "keywords": [
+      "hvordan har du det",
+      "har du det godt",
+      "hvordan går det",
+      "hvad så",
+      "hvad laver du"
+    ],
     "answers": [
       "Det går rigtig godt, tak! ;D",
       "Jeg har det fint! Hvordan har du det?",
@@ -28,7 +49,16 @@
   },
   {
     "category": "bosted",
-    "keywords": ["bor", "bosted", "hvor kommer du fra", "hvor er du fra", "hjemby", "opvokset", "risskov", "ans"],
+    "keywords": [
+      "bor",
+      "bosted",
+      "hvor kommer du fra",
+      "hvor er du fra",
+      "hjemby",
+      "opvokset",
+      "risskov",
+      "ans"
+    ],
     "answers": [
       "Jeg kommer oprindeligt fra Ans By, som ligger ved Tange Sø.",
       "Nu bor jeg i Risskov sammen med min kæreste.",
@@ -37,7 +67,12 @@
   },
   {
     "category": "alder",
-    "keywords": ["hvor gammel", "alder", "fødselsdag", "født"],
+    "keywords": [
+      "hvor gammel",
+      "alder",
+      "fødselsdag",
+      "født"
+    ],
     "answers": [
       "Jeg er 23 år gammel.",
       "Jeg er født i 2003, så regn selv på det ;P"
@@ -45,14 +80,31 @@
   },
   {
     "category": "arbejde_uddannelse",
-    "keywords": ["job", "arbejde", "arbejder", "uddannelse", "studerer", "læser", "profession"],
+    "keywords": [
+      "job",
+      "arbejde",
+      "arbejder",
+      "uddannelse",
+      "studerer",
+      "læser",
+      "profession"
+    ],
     "answers": [
       "I øjeblikket har jeg ikke et job, men jeg er frivillig underviser til dans."
     ]
   },
   {
     "category": "kaereste_familie",
-    "keywords": ["kæreste", "kærste", "gift", "single", "familie", "søskende", "forældre", "børn"],
+    "keywords": [
+      "kæreste",
+      "kærste",
+      "gift",
+      "single",
+      "familie",
+      "søskende",
+      "forældre",
+      "børn"
+    ],
     "answers": [
       "Jeg bor sammen med min kæreste i Risskov, og vi har det rigtig godt sammen.",
       "Min familie betyder meget for mig! min nærrmeste familie er min kærste, forældre og store bror."
@@ -60,7 +112,15 @@
   },
   {
     "category": "fritid",
-    "keywords": ["fritid", "hobby", "hobbyer", "kan lide", "laver du", "interesser", "weekend"],
+    "keywords": [
+      "fritid",
+      "hobby",
+      "hobbyer",
+      "kan lide",
+      "laver du",
+      "interesser",
+      "weekend"
+    ],
     "answers": [
       "I min fritid danser jeg West Coast Swing.... Ofte.... Meget...",
       "Når jeg føler mig kreativ, kan jeg godt lide at hækle, strikke eller andre krea projekter.",
@@ -70,7 +130,15 @@
   },
   {
     "category": "haandarbejde",
-    "keywords": ["hækle", "hækling", "strik", "strikke", "garn", "håndarbejde", "kreativ"],
+    "keywords": [
+      "hækle",
+      "hækling",
+      "strik",
+      "strikke",
+      "garn",
+      "håndarbejde",
+      "kreativ"
+    ],
     "answers": [
       "Jeg både hækler og strikker, alt efter humør. Hækling har jeg gjordt længst, så det er lidt mere afslappende for mig.",
       "Der er noget fedt ved at skabe noget selv, til sig selv, til en gave eller noget til hjemmet"
@@ -78,7 +146,15 @@
   },
   {
     "category": "film",
-    "keywords": ["film", "serie", "serier", "ser lige nu", "biograf", "netflix", "yndlingsfilm"],
+    "keywords": [
+      "film",
+      "serie",
+      "serier",
+      "ser lige nu",
+      "biograf",
+      "netflix",
+      "yndlingsfilm"
+    ],
     "answers": [
       "Jeg elsker musicals, både som film og i teatret.",
       "Romancer og komedier er det jeg ser mest af.",
@@ -87,7 +163,15 @@
   },
   {
     "category": "musik",
-    "keywords": ["musik", "favorit kunstner", "kunstner", "lytter til", "sang", "playlist", "band"],
+    "keywords": [
+      "musik",
+      "favorit kunstner",
+      "kunstner",
+      "lytter til",
+      "sang",
+      "playlist",
+      "band"
+    ],
     "answers": [
       "På grund af min dans er min musiksmag meget varieret, men jeg lytter generalt mest til pop!",
       "Jeg lytter tit til musicals!! Der er ofte noget som minder mig om et qoute.",
@@ -96,7 +180,13 @@
   },
   {
     "category": "musicals_teater",
-    "keywords": ["musical", "musicals", "teater", "forestilling", "yndlingsmusical"],
+    "keywords": [
+      "musical",
+      "musicals",
+      "teater",
+      "forestilling",
+      "yndlingsmusical"
+    ],
     "answers": [
       "Jeg har været stor fan af musicals i efterhånden mange år! Jeg elsker dem både på film og live i teatret.",
       "Min yndlingsmusical er nok Hamilton, men det er svært at vælge. Hamilton var nok min gateway drug til hele musical verdnen."
@@ -104,7 +194,18 @@
   },
   {
     "category": "spil",
-    "keywords": ["spil", "gamer", "gaming", "computer", "comtuter", "konsol", "consol", "switch", "playstation", "xbox"],
+    "keywords": [
+      "spil",
+      "gamer",
+      "gaming",
+      "computer",
+      "comtuter",
+      "konsol",
+      "consol",
+      "switch",
+      "playstation",
+      "xbox"
+    ],
     "answers": [
       "Jeg er vokset op med spille konsoller: Xbox, Wii, Playstation og nu Switch. Så jeg er elendig til at spille med tastatur, men jeg øver mig.",
       "Skyde- og strategi spil stresser mig. Jeg kan meget bedre lide puzzle- eller cozy 'farming'-spil."
@@ -112,7 +213,16 @@
   },
   {
     "category": "dans",
-    "keywords": ["dans", "danser", "danse", "hvor længe har du danset", "stilart", "west coast", "swing", "rock n roll"],
+    "keywords": [
+      "dans",
+      "danser",
+      "danse",
+      "hvor længe har du danset",
+      "stilart",
+      "west coast",
+      "swing",
+      "rock n roll"
+    ],
     "answers": [
       "Jeg har altid elsket at hoppe og danse til musik, men da jeg var 15, blev det nærmest et personlighedstræk.",
       "Som barn dansede jeg en smule standarddans, men det husker jeg desværre ikke meget af. Som teenager blev det lidt hip-hop og Just Dance. Som 15-årig begyndte jeg til swing og rock'n'roll, men nu er mit fokus primært West Coast Swing.",
@@ -122,7 +232,13 @@
   },
   {
     "category": "west_coast_swing",
-    "keywords": ["west coast swing", "wcs", "hvad er west coast", "partnerdans", "social dans"],
+    "keywords": [
+      "west coast swing",
+      "wcs",
+      "hvad er west coast",
+      "partnerdans",
+      "social dans"
+    ],
     "answers": [
       "West Coast Swing er en partnerdans, hvor der er meget plads til improvisation og til at fortolke musikken sammen med sin partner.",
       "Det bedste ved West Coast Swing er, at man kan danse til næsten al slags musik, og selv som follower, har jeg en masse at bridrage med til dansen.",
@@ -131,7 +247,16 @@
   },
   {
     "category": "mad",
-    "keywords": ["mad", "yndlingsmad", "spise", "opskrift", "kage", "bage", "lave mad", "restaurant"],
+    "keywords": [
+      "mad",
+      "yndlingsmad",
+      "spise",
+      "opskrift",
+      "kage",
+      "bage",
+      "lave mad",
+      "restaurant"
+    ],
     "answers": [
       "Jeg er ikke selv så god i et køkken, men det er så hyggeligt når man kan lave og dele mad sammen med andre.",
       "Jeg kan ikke vælge en yndlingsret, jeg ælsker mad!",
@@ -140,7 +265,13 @@
   },
   {
     "category": "dyr",
-    "keywords": ["dyr", "kæledyr", "hund", "kat", "har du et dyr"],
+    "keywords": [
+      "dyr",
+      "kæledyr",
+      "hund",
+      "kat",
+      "har du et dyr"
+    ],
     "answers": [
       "Jeg har ikke selv et kæledyr, men mine forældre har en hund, Amigo, som jeg elsker højt.",
       "Jeg har haft 2 familie hunde, som jeg ælsker højt. Men jeg drømmer om en gang at få en kælen kat"
@@ -148,7 +279,13 @@
   },
   {
     "category": "sprog",
-    "keywords": ["sprog", "engelsk", "dansk", "taler du", "flere sprog"],
+    "keywords": [
+      "sprog",
+      "engelsk",
+      "dansk",
+      "taler du",
+      "flere sprog"
+    ],
     "answers": [
       "Jeg taler dansk og engelsk, og jeg skriver gerne på begge sprog.",
       "Dansk er mit modersmål, men engelsk bruger jeg også hele tiden, både online og i dansemiljøet."
@@ -156,7 +293,14 @@
   },
   {
     "category": "tak",
-    "keywords": ["tak", "mange tak", "tak for hjælpen", "fedt", "sejt", "sødt"],
+    "keywords": [
+      "tak",
+      "mange tak",
+      "tak for hjælpen",
+      "fedt",
+      "sejt",
+      "sødt"
+    ],
     "answers": [
       "Selv tak! :D",
       "Det var så lidt! Er der mere, du vil vide?",
@@ -165,7 +309,15 @@
   },
   {
     "category": "farvel",
-    "keywords": ["farvel", "hej hej", "vi ses", "ses", "bye", "godnat", "på gensyn"],
+    "keywords": [
+      "farvel",
+      "hej hej",
+      "vi ses",
+      "ses",
+      "bye",
+      "godnat",
+      "på gensyn"
+    ],
     "answers": [
       "Farvel og tak for snakken!",
       "Vi ses! Kom endelig tilbage, hvis du får flere spørgsmål.",
@@ -180,5 +332,10 @@
       "Det spørgsmål kunne jeg ikke helt fange. Vil du prøve at omformulere det?",
       "Den er jeg desværre ikke blevet trænet i endnu. Du kan spørge mig om fritid, musicals eller West Coast Swing."
     ]
+  },
+  {
+    "category": "rejse",
+    "keywords": "rejser",
+    "answers": "jeg kan lide at rejse"
   }
 ]
